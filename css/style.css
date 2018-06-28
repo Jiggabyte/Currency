@@ -1,11 +1,11 @@
 .currDiv {
-    background-color: rgb(225, 236, 237);
+    background-color: lightblue;
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 450px;
     border-radius: 10px;
 }
 
@@ -13,8 +13,12 @@
     background-color: darkgreen;
     margin-left: auto;
     margin-right: auto;
+    padding:20px;
     width: 150px;
-    height: 40px;
+    height: 20px;
+    font-size:1.3em;
+    font-weight:bold;
+    color:white;
     display: block;
     border-radius: 5px;
 }
@@ -23,6 +27,8 @@
     margin-left: auto;
     margin-right: auto;
     width: 100px;
+    font-size:1.3em;
+    font-weight:bold;
     display: block;
 }
 
@@ -31,6 +37,8 @@ label {
     margin-left: auto;
     margin-right: auto;
     width: 100px;
+    font-size:1.3em;
+    font-weight:bold;
     display: block;
 }
 
@@ -38,6 +46,8 @@ label {
     margin-left: auto;
     margin-right: auto;
     width: 100px;
+    font-size:1.3em;
+    font-weight:bold;
     display: block;
 }
 
@@ -46,19 +56,37 @@ label {
     margin-left: auto;
     margin-right: auto;
     width: 100px;
+    font-size:1.3em;
+    font-weight:bold;
     display: block;
 }
 
 .fromCurr {
     margin-left: auto;
     margin-right: auto;
-    width: 100px;
+    width: 200px;
+    font-size:1.3em;
+    font-weight:bold;
     display: block;
 }
 
 .toCurr {
     margin-left: auto;
     margin-right: auto;
-    width: 100px;
+    width: 200px;
+    font-size:1.3em;
+    font-weight:bold;
     display: block;
+}
+
+.toast-content {
+    margin-left:20px;
+    font-weight:bold;
+    opacity:1;
+}
+
+.unbutton {
+    margin-left:5px;
+    font-weight:bold;
+    opacity:1;
 }

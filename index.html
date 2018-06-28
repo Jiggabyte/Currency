@@ -7,13 +7,89 @@
     <meta name="description" content="JiggaByte Currency Converter is a one stop shop for all your currency conversion. ">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <script type="text/javascript" src="index.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        function registerSW() {
+            if (!navigator.serviceWorker) return;
+
+
+
+            navigator.serviceWorker.register('/currency/sw.js').then(function(reg) {
+                if (!navigator.serviceWorker.controller) {
+                    return;
+                }
+
+                if (reg.waiting) {
+                    updateReady(reg.waiting);
+                    return;
+                }
+
+                if (reg.installing) {
+                    trackInstalling(reg.installing);
+                    return;
+                }
+
+                reg.addEventListener('updatefound', function() {
+                    trackInstalling(reg.installing);
+                });
+            });
+
+            // Ensure refresh is only called once.
+            // This works around a bug in "force update on reload".
+            let refreshing;
+            navigator.serviceWorker.addEventListener('controllerchange', function() {
+                if (refreshing) return;
+                window.location.reload();
+                refreshing = true;
+            });
+        }
+
+        registerSW();
+
+
+
+        function trackInstalling(worker) {
+
+            worker.addEventListener('statechange', function() {
+                if (worker.state == 'installed') {
+                    updateReady(worker);
+                }
+            });
+        }
+
+        function updateReady(worker) {
+
+            const tostView ='<div class="toast">' +
+                '<div class="toast-content">New Version Available.</div>' +
+                '<br />' +
+                '<button id="refesh" class="unbutton">Refresh</button>' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;' +
+                '<button id="dismis" class="unbutton">Dismiss</button>' +
+                '</div>';
+            document.getElementById('offliner').style.display = 'block';
+            document.getElementById('offliner').innerHTML = tostView;
+            document.getElementById('refesh').onclick = function () {
+
+                window.location = '';
+            };
+            document.getElementById('dismis').onclick = function () {
+                document.getElementById('offliner').style.display = 'none';
+            };
+
+            worker.postMessage({action: 'skipWaiting'});
+
+        }
+    </script>
 
 </head>
 
 <body style="background:#e6e7e4 url('images/currImage.jpeg');">
+<div id="offliner" style="background-color:lightgrey;position:fixed;left:0px;top:200px;width:95%;height:100px;color:blue;opacity:0.9;border:1px solid grey;display:none;z-index:500;">
+
+</div>
     <div id="currDiv" class="currDiv">
         <section id="former">
             <label for="curr">Money</label><br />

@@ -1,24 +1,5 @@
 window.onload = function() {
 
-
-    function convertCurrency(amount, fromCurrency, toCurrency) {
-        var apiKey = '';
-
-        fromCurrency = encodeURIComponent(fromCurrency);
-        toCurrency = encodeURIComponent(toCurrency);
-        var query = fromCurrency + '_' + toCurrency;
-
-        var url = 'https://free.currencyconverterapi.com/api/v5/convert?q=' +
-            query + '&compact=ultra&apiKey=' + apiKey;
-
-        fetch(url).then(function(resData) {
-            return resData.json();
-        }).then(function(RSD) {
-            console.log(RSD);
-        })
-
-    }
-
     let fromCurrency, toCurrency, amount, retvalor, numb;
 
 
@@ -36,13 +17,13 @@ window.onload = function() {
         theAmnt = document.getElementById('curr');
         amount = theAmnt.value;
 
-        var apiKey = '';
+        let apiKey = '';
 
         fromCurrency = encodeURIComponent(fromCurrency);
         toCurrency = encodeURIComponent(toCurrency);
-        var query = fromCurrency + '_' + toCurrency;
+        let query = fromCurrency + '_' + toCurrency;
 
-        var url = 'https://free.currencyconverterapi.com/api/v5/convert?q=' +
+        let url = 'https://free.currencyconverterapi.com/api/v5/convert?q=' +
             query + '&compact=ultra&apiKey=' + apiKey;
 
         fetch(url).then(function(resData) {
@@ -68,5 +49,7 @@ window.onload = function() {
       console.log(amount);
     });
     */
+
+
 
 };
