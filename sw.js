@@ -1,4 +1,3 @@
-
 const CacheN = 'currCache';
 const ImgsCacheN = 'currImgN';
 
@@ -16,7 +15,6 @@ self.addEventListener('install', function(event) {
         })
     );
 });
-
 
 self.addEventListener('fetch', function(event) {
     let requestUrl = new URL(event.request.url);
@@ -58,9 +56,10 @@ function servePhoto(request) {
     });
 }
 
+
+
 self.addEventListener('message', function(event) {
     if (event.data.action === 'skipWaiting') {
         self.skipWaiting();
     }
 });
-

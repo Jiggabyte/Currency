@@ -8,14 +8,12 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <script src="js/idb.js"></script>
     <script src="js/main.js"></script>
 
     <script type="text/javascript">
         function registerSW() {
             if (!navigator.serviceWorker) return;
-
-
 
             navigator.serviceWorker.register('/currency/sw.js').then(function(reg) {
                 if (!navigator.serviceWorker.controller) {
@@ -725,7 +723,10 @@
             <button id="conv" class="conv">Convert</button><br />
             <div id="shower" class="shower">
             </div>
+
         </section>
+        <div id="show" class="show">
+        </div>
         </div>
 </body>
 

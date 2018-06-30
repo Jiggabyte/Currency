@@ -6,11 +6,12 @@
     padding: 20px;
     width: 300px;
     height: 450px;
+    border: 2px solid black;
     border-radius: 10px;
 }
 
 .shower {
-    background-color: darkgreen;
+    background-color: black;
     margin-left: auto;
     margin-right: auto;
     padding:20px;
@@ -52,6 +53,7 @@ label {
 }
 
 .conv {
+    background-color: blue;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -59,6 +61,8 @@ label {
     font-size:1.3em;
     font-weight:bold;
     display: block;
+    color:white;
+    border-radius: 5px;
 }
 
 .fromCurr {
@@ -89,4 +93,18 @@ label {
     margin-left:5px;
     font-weight:bold;
     opacity:1;
+}
+
+.show {
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    padding:20px;
+    width: 250px;
+    height: 200px;
+    font-size:1.3em;
+    font-weight:bold;
+    color:white;
+    display: none;
+    border-radius: 5px;
 }
