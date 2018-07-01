@@ -2,6 +2,21 @@ window.onload = function() {
 
     let froCur, toCur, theAmt, fromCurrency, toCurrency, amount, valor, numb;
 
+    let dbx = idb.open('currDb', 3, function(upgradeDb) {
+        switch(upgradeDb.oldVersion) {
+
+            case 0:
+                upgradeDb.createObjectStore('currSt', { keyPath: 'pair' });
+            case 1:
+                let currStore = upgradeDb.transaction.objectStore('currSt');
+                currStore.createIndex('1', 'mony');
+            case 2:
+                currStore = upgradeDb.transaction.objectStore('currSt');
+                currStore.createIndex('5', 'monies');
+
+        }
+
+    });
 
     document.getElementById('conv').onclick = function() {
         froCur = document.getElementById('fromCurr');
@@ -28,42 +43,79 @@ window.onload = function() {
 
         fetch(url).then(function(resData) {
             return resData.json();
+
+        }).catch(function(errData){
+            console.log(errData);
+
+                //alert(errData);
+
+            // Using cursors
+            dbx.then(function(db) {
+                let tx = db.transaction('currSt');
+                let currStore = tx.objectStore('currSt');
+                let pairData = currStore.index('1');
+                return pairData.openCursor(query);
+            }).then(function(data) {
+                if (!data) return;
+                console.log(data.value.valur);
+                let numba = data.value.valur * amount;
+                document.getElementById('shower').innerHTML = numba.toFixed(2);
+                return ;
+            });
+
         }).then(function(RSD) {
             valor = RSD;
             console.log(RSD);
             numb = valor[query] * amount;
-            document.getElementById('shower').innerHTML = numb.toFixed(2);
+
             console.log(valor[query]);
 
-            let dbx = idb.open('currDb', 3, function(upgradeDb) {
-                switch(upgradeDb.oldVersion) {
 
-                    case 0:
-                        upgradeDb.createObjectStore('currSt', { keyPath: 'pair' });
-                    case 1:
-                        let currStore = upgradeDb.transaction.objectStore('currSt');
-                        currStore.createIndex('1', 'mony');
-                    case 2:
-                        currStore = upgradeDb.transaction.objectStore('currSt');
-                        currStore.createIndex('5', 'monies');
-
-                }
-
-            });
 
             dbx.then(function(db) {
                 let tx = db.transaction('currSt', 'readwrite');
                 let currStore = tx.objectStore('currSt');
                 currStore.put({
                     pair: query,
-                    value: valor[query],
-                    mony: valor[query],
+                    valur: valor[query],
+                    mony: query,
                     monies: valor[query] * 5
 
                 });
                 return tx.complete;
             }).then(function() {
                 console.log('Added ' +  valor[query] + '  to CurrSt');
+            });
+
+            // Using cursors
+            dbx.then(function(db) {
+                let tx = db.transaction('currSt');
+                let currStore = tx.objectStore('currSt');
+                let pairData = currStore.index('1');
+                return pairData.openCursor(query);
+            }).then(function(data) {
+                if (!data) return;
+                console.log(data.value.valur);
+                document.getElementById('shower').innerHTML = numb.toFixed(2);
+                return ;
+            });
+
+            // Using cursors
+            dbx.then(function(db) {
+                let tx = db.transaction('currSt');
+                let currStore = tx.objectStore('currSt');
+                let pairIndex = currStore.index('1');
+                return pairIndex.openCursor();
+            }).then(function(cursor) {
+                if (!cursor) return;
+                return cursor.advance(157);
+            }).then(function logPer(cursor) {
+                if (!cursor) return;
+                console.log("Cursored at:", cursor.value.pair);
+                cursor.delete(); // to delete this entry
+                return cursor.continue().then(logPer);
+            }).then(function() {
+                console.log('Done Cursoring');
             });
 
 
