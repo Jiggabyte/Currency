@@ -6,7 +6,7 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CacheN).then(function(cache) {
             return cache.addAll([
-                '/currency',
+                '/currency/',
                 '/currency/index.html',
                 '/currency/js/main.js',
                 '/currency/css/style.css'
@@ -21,8 +21,8 @@ self.addEventListener('fetch', function(event) {
     console.log(event.request);
 
     if (requestUrl.origin === location.origin) {
-        if (requestUrl.pathname === '/currency') {
-            event.respondWith(caches.match('/currency'));
+        if (requestUrl.pathname === '/currency/') {
+            event.respondWith(caches.match('/currency/'));
             return;
         }
 
