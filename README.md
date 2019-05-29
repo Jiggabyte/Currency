@@ -15,7 +15,7 @@ and run your website.
 
 # Demo
 Visit 
-https://jiggabyte.github.io/currency
+https://jiggabyte.github.io/Currency
 to view a working version of the application.
 
 Version
